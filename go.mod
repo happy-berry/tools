@@ -1,6 +1,6 @@
 module github.com/happy-berry/tools
 
-go 1.22.1
+go 1.21
 
 require (
 	gorm.io/driver/mysql v1.5.6
