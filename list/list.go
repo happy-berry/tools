@@ -7,7 +7,7 @@ type Any interface {
 }
 
 // Remove 删除a切片中的b元素 只删除某一个元素会修改切片的顺序
-func Remove(s []int, index int) ([]int, error) {
+func Remove[T Any](s []T, index int) ([]T, error) {
 	if index < 0 || index >= len(s) {
 		return nil, errors.New("index out of range")
 	}
