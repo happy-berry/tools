@@ -1,23 +1,21 @@
 package list
 
+import "errors"
+
 type Any interface {
 	int | string
 }
 
 // Remove 删除a切片中的b元素 只删除某一个元素会修改切片的顺序
-func Remove[T Any](a, b []T) []T {
-	m := make(map[T]struct{})
-	for _, v := range a {
-		m[v] = struct{}{}
+func Remove(s []int, index int) ([]int, error) {
+	if index < 0 || index >= len(s) {
+		return nil, errors.New("index out of range")
 	}
-	for _, v := range b {
-		delete(m, v)
+
+	if index == len(s)-1 { // if it's the last element
+		return s[:index], nil
 	}
-	newSli := make([]T, 0)
-	for k, _ := range m {
-		newSli = append(newSli, k)
-	}
-	return newSli
+	return append(s[:index], s[index+1:]...), nil
 }
 
 // Add 像切片中添加元素不重复
