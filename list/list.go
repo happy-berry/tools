@@ -3,7 +3,7 @@ package list
 import "errors"
 
 type Any interface {
-	int | string | interface{}
+	int | string | int8 | uint | float32 | float64 | interface{}
 }
 
 // Remove 删除a切片中的b元素 只删除某一个元素会修改切片的顺序
@@ -18,8 +18,12 @@ func Remove[T Any](s []T, index int) ([]T, error) {
 	return append(s[:index], s[index+1:]...), nil
 }
 
+type Base interface {
+	int | string | int8 | uint | float32 | float64
+}
+
 // Add 像切片中添加元素不重复
-func Add[T Any](a, b []T) []T {
+func Add[T Base](a, b []T) []T {
 	a = append(a, b...)
 	m := make(map[T]struct{})
 	for _, v := range a {
@@ -33,7 +37,7 @@ func Add[T Any](a, b []T) []T {
 }
 
 // Contain 判断切片中是否包含某个、某些元素
-func Contain[T Any](a []T, b ...T) bool {
+func Contain[T Base](a []T, b ...T) bool {
 	m := make(map[T]struct{})
 	for _, v := range a {
 		m[v] = struct{}{}
@@ -53,7 +57,7 @@ func IsEmpty[T Any](a []T) bool {
 }
 
 // Index 返回该元素再数组中第一次出现的位置
-func Index[T Any](a []T, b T) int {
+func Index[T Base](a []T, b T) int {
 	for i := range a {
 		if a[i] == b {
 			return i
