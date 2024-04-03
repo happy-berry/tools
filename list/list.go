@@ -3,7 +3,7 @@ package list
 import "errors"
 
 type Any interface {
-	int | string
+	int | string | interface{}
 }
 
 // Remove 删除a切片中的b元素 只删除某一个元素会修改切片的顺序
